@@ -1,0 +1,53 @@
+{
+  "private": true,
+  "kieker": {
+    "serverUrl": "http://localhost:8000",
+    "entryFile": "./js/helpers.js",
+    "files": [
+      {
+        "cwd": "js",
+        "dest": "build",
+        "src": "**/*.js"
+      }
+    ],
+    "output": "./build/helpers.js",
+    "workerOutput": "./worker.js",
+    "advices": [
+      {
+        "type": "function"
+      }, {
+        "type": "environment",
+        "include": [
+          "os",
+          "version",
+          "name"
+        ]
+      }
+    ],
+    "writer": [
+      {
+        "type": "console",
+        "logLevel": "info"
+      }
+    ]
+  },
+  "scripts": {
+    "instrument": "./node_modules/.bin/kieker",
+    "inlineDependencies": "cp build/helpers.js build/_helpers.js && browserify build/_helpers.js -o build/helpers.js && cp worker.js instrumentedWorker.js && browserify instrumentedWorker.js -o worker.js",
+    "build": "npm run instrument && npm run inlineDependencies"
+  },
+  "dependencies": {
+    "kieker-javascript-advice-environment": "latest",
+    "kieker-javascript-advice-function": "latest",
+    "kieker-javascript-advice-method": "latest",
+    "kieker-javascript-cli": "latest",
+    "kieker-javascript-core": "latest",
+    "kieker-javascript-worker": "latest",
+    "kieker-javascript-writer-console": "latest",
+    "todomvc-app-css": "^2.0.1",
+    "todomvc-common": "^1.0.1"
+  },
+  "devDependencies": {
+    "jasmine-core": "^2.0.0"
+  }
+}
